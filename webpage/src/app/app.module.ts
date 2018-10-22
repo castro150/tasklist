@@ -5,6 +5,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
+import {
+  MatExpansionModule,
+  MatInputModule
+} from '@angular/material';
+
 import { TasksComponent } from './tasks/tasks.component';
 
 @NgModule({
@@ -16,7 +21,9 @@ import { TasksComponent } from './tasks/tasks.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    FormsModule
+    FormsModule,
+    MatExpansionModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]
