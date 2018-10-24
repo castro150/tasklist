@@ -49,6 +49,8 @@ public class TaskController {
             .orElseThrow(() -> new ResourceNotFoundException("Task", "id", taskId));
 
         task.setName(taskDetails.getName());
+        task.setPending(taskDetails.getPending());
+        task.setImage(taskDetails.getImage());
 
         Task updatedTask = taskRepository.save(task);
         return updatedTask;

@@ -28,6 +28,11 @@ public class Task implements Serializable {
 
     @NotBlank
     private String name;
+    
+    @Column(columnDefinition = "boolean default true")
+    private Boolean pending = true;
+    
+    private String image;
 
     @Column(nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
