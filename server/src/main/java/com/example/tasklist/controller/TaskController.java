@@ -28,8 +28,8 @@ public class TaskController {
 
     // Get All Tasks
     @RequestMapping(value="/tasks", method=RequestMethod.GET)
-    public List<Task> getAllTasks() {
-        return taskService.getAllTasks();
+    public List<Task> getAllTasks(@RequestParam(name = "pending", required = false) Boolean pending) {
+        return pending != null ? taskService.getTasksByPending(pending) : taskService.getAllTasks();
     }
 
     // Create a new Tasks

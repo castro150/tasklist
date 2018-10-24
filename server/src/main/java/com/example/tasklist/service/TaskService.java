@@ -63,4 +63,8 @@ public class TaskService {
 
         taskRepository.save(task);
     }
+    
+    public List<Task> getTasksByPending(Boolean pending) {
+        return taskRepository.findByPending(pending);
+    }
 }
