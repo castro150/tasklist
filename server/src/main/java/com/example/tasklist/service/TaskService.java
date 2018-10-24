@@ -48,7 +48,7 @@ public class TaskService {
         Task task = taskRepository.findById(taskId)
             .orElseThrow(() -> new ResourceNotFoundException("Task", "id", taskId));
 
-        // TODO remove file if needed
+        if(task.getImage() != null) fileStorageService.deleteFile(task.getImage());
 
         taskRepository.delete(task);
     }
