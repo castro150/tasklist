@@ -30,7 +30,7 @@
           </mat-panel-description>
         </mat-expansion-panel-header>
         <div *ngIf="task.image && !task.pending" class="text-center">
-          <img id="task-image" class="rounded" src="assets/{{ task.image }}" />
+          <img id="task-image" class="rounded" src="{{ this.getImageUrl(task.image) }}" />
         </div>
       </mat-expansion-panel>
     </mat-accordion>

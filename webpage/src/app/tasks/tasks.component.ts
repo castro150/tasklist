@@ -30,13 +30,17 @@ export class TasksComponent implements OnInit {
     this.getTasks(newFilter);
   }
 
-  getTasks(filter): void {
+  getTasks(filter: string): void {
     this.spinner.show();
     this.tasksService.getTasks(filter)
       .subscribe(tasks => {
         this.spinner.hide();
         this.tasks = tasks;
       });
+  }
+
+  getImageUrl(imageName: string): string {
+    return this.tasksService.getImageUrl(imageName);
   }
 
 }

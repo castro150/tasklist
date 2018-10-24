@@ -20,4 +20,8 @@ export class TasksService {
     console.warn('BUSCANDO TASKS', filter); // TODO apply filter
     return this.http.get<Task[]>(`http://${environment.server}/api/tasks`);
   }
+
+  getImageUrl(imageName: string): string {
+    return `http://${environment.server}/files/${imageName}`;
+  }
 }
