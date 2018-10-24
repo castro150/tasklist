@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import {
+  MatButtonToggleModule,
   MatExpansionModule,
   MatInputModule
 } from '@angular/material';
@@ -22,6 +23,7 @@ import { TasksComponent } from './tasks/tasks.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
+    MatButtonToggleModule,
     MatExpansionModule,
     MatInputModule
   ],

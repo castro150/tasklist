@@ -1,33 +1,36 @@
-<p>
-  tasks works!
-</p>
+<div class="row">
+  <div class="offset-md-4 col-md-4 col-sm-12" align="center">
+    <mat-form-field id="task-input" appearance="outline">
+      <mat-label>O que deve ser feito?</mat-label>
+      <input matInput placeholder="Digite e aperte ENTER" [(ngModel)]="model.name" (keyup.enter)="onEnter(model.name)">
+    </mat-form-field>
+  </div>
+</div>
 
-<mat-expansion-panel>
-  <mat-expansion-panel-header>
-    <mat-panel-title>
-      Personal data
-    </mat-panel-title>
-    <mat-panel-description>
-      Type your name and age
-    </mat-panel-description>
-  </mat-expansion-panel-header>
-
-  <mat-form-field>
-    <input matInput placeholder="First name">
-  </mat-form-field>
-
-  <mat-form-field>
-    <input matInput placeholder="Age">
-  </mat-form-field>
-</mat-expansion-panel>
-<mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-  <mat-expansion-panel-header>
-    <mat-panel-title>
-      Self aware panel
-    </mat-panel-title>
-    <mat-panel-description>
-      Currently I am {{panelOpenState ? 'open' : 'closed'}}
-    </mat-panel-description>
-  </mat-expansion-panel-header>
-  <p>I'm visible because I am open</p>
-</mat-expansion-panel>
+<div class="row">
+  <div class="offset-md-4 col-md-4 col-sm-12" align="center">
+    <mat-button-toggle-group id="buttons" name="fontStyle" aria-label="Font Style">
+      <mat-button-toggle checked="true" (click)="switchFilter('all')">Todos</mat-button-toggle>
+      <mat-button-toggle (click)="switchFilter('pending')">Pendentes</mat-button-toggle>
+      <mat-button-toggle (click)="switchFilter('done')">Feitos</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+</div>
+  
+<div class="row">
+  <div class="offset-md-4 col-md-4 col-sm-12">
+    <mat-accordion>
+      <mat-expansion-panel *ngFor="let task of tasks;" [disabled]="task.pending || !task.image">
+        <mat-expansion-panel-header>
+          <mat-panel-description id="task-name">
+            <del *ngIf="!task.pending">{{ task.name }}</del>
+            <span *ngIf="task.pending">{{ task.name }}</span>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div *ngIf="task.image && !task.pending" class="text-center">
+          <img id="task-image" class="rounded" src="assets/{{ task.image }}" />
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</div>

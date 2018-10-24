@@ -1,0 +1,15 @@
+#buttons {
+    margin: 10px;
+}
+
+#task-input {
+    width: 100%;
+}
+
+#task-name {
+    color: rgba(0,0,0,.87);
+}
+
+#task-image {
+    width: 50%;
+}
