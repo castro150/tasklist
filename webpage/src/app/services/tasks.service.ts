@@ -14,13 +14,25 @@ const httpOptions = {
 })
 export class TasksService {
 
+  private tasksUrl = `http://${environment.server}/api/tasks`;
+
   constructor(private http: HttpClient) { }
 
   getTasksByStatus(status: string): Observable<Task[]> {
-    let serviceUrl = `http://${environment.server}/api/tasks`;
+    let serviceUrl = this.tasksUrl;
     if (status === 'pending') serviceUrl += '?pending=true';
     else if (status === 'done') serviceUrl += '?pending=false';
     return this.http.get<Task[]>(serviceUrl);
+  }
+
+  createNewTask(newTaskName: string): Observable<Task> {
+    let newTask: Task = {
+      id: null,
+      name: newTaskName,
+      pending: true,
+      image: null
+    };
+    return this.http.post<Task>(this.tasksUrl, newTask, httpOptions);
   }
 
   getImageUrl(imageName: string): string {

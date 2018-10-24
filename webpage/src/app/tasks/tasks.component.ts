@@ -21,12 +21,18 @@ export class TasksComponent implements OnInit {
     this.getTasks('all');
   }
 
-  onEnter(newTaskName): void {
-    console.warn('NOVA', newTaskName);
+  onEnter(newTaskName: string): void {
+    this.spinner.show();
+    this.tasksService.createNewTask(newTaskName)
+      .subscribe(_ => {
+        this.spinner.hide();
+        this.model.name = '';
+        this.getTasks('all');
+      });
   }
 
-  switchFilter(newFilter): void {
-    this.getTasks(newFilter);
+  switchStatus(status: string): void {
+    this.getTasks(status);
   }
 
   getTasks(status: string): void {

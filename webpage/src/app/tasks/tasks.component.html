@@ -12,9 +12,9 @@
 <div class="row">
   <div class="offset-md-4 col-md-4 col-sm-12" align="center">
     <mat-button-toggle-group id="buttons" name="fontStyle" aria-label="Font Style">
-      <mat-button-toggle checked="true" (click)="switchFilter('all')">Todos</mat-button-toggle>
-      <mat-button-toggle (click)="switchFilter('pending')">Pendentes</mat-button-toggle>
-      <mat-button-toggle (click)="switchFilter('done')">Feitos</mat-button-toggle>
+      <mat-button-toggle checked="true" (click)="switchStatus('all')">Todos</mat-button-toggle>
+      <mat-button-toggle (click)="switchStatus('pending')">Pendentes</mat-button-toggle>
+      <mat-button-toggle (click)="switchStatus('done')">Feitos</mat-button-toggle>
     </mat-button-toggle-group>
   </div>
 </div>
