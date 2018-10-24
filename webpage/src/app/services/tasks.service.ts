@@ -1,22 +1,23 @@
-import { Injectable } from '@angular/core'
-import { Observable, of } from 'rxjs'
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
-import { Task } from '../entity/task'
+import { Task } from '../entity/task';
+import { environment } from '../../environments/environment';
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
 @Injectable({
   providedIn: 'root'
 })
 export class TasksService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   getTasks(filter): Observable<Task[]> {
-    let tasks: Task[] = [
-      { id: 1, name: 'Task 1', pending: false, image: 'task-test.png' },
-      { id: 2, name: 'Task 2', pending: true, image: '' },      
-      { id: 1, name: 'Task 3', pending: false, image: '' },
-    ]
-    console.warn('BUSCANDO TASKS', filter)
-    return of(tasks)
+    console.warn('BUSCANDO TASKS', filter); // TODO apply filter
+    return this.http.get<Task[]>(`http://${environment.server}/api/tasks`);
   }
 }

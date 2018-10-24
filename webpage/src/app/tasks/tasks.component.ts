@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { TasksService } from '../services/tasks.service'
-import { Task } from '../entity/task'
+import { NgxSpinnerService } from 'ngx-spinner';
+import { TasksService } from '../services/tasks.service';
+import { Task } from '../entity/task';
 
 @Component({
   selector: 'app-tasks',
@@ -10,14 +11,14 @@ import { Task } from '../entity/task'
 export class TasksComponent implements OnInit {
   model = {
     name: ''
-  }
+  };
 
-  tasks: Task[]
+  tasks: Task[];
 
-  constructor(private tasksService: TasksService) { }
+  constructor(private tasksService: TasksService, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
-    this.getTasks('all')
+    this.getTasks('all');
   }
 
   onEnter(newTaskName): void {
@@ -26,12 +27,16 @@ export class TasksComponent implements OnInit {
 
   switchFilter(newFilter): void {
     console.warn('ENTROU', newFilter);
-    this.getTasks(newFilter)
+    this.getTasks(newFilter);
   }
 
   getTasks(filter): void {
+    this.spinner.show();
     this.tasksService.getTasks(filter)
-      .subscribe(tasks => this.tasks = tasks);
+      .subscribe(tasks => {
+        this.spinner.hide();
+        this.tasks = tasks;
+      });
   }
 
 }

@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HttpClientModule }    from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import {
@@ -10,6 +11,7 @@ import {
   MatExpansionModule,
   MatInputModule
 } from '@angular/material';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { TasksComponent } from './tasks/tasks.component';
 
@@ -21,11 +23,13 @@ import { TasksComponent } from './tasks/tasks.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
     MatButtonToggleModule,
     MatExpansionModule,
-    MatInputModule
+    MatInputModule,
+    NgxSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
