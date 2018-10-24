@@ -26,13 +26,12 @@ export class TasksComponent implements OnInit {
   }
 
   switchFilter(newFilter): void {
-    console.warn('ENTROU', newFilter);
     this.getTasks(newFilter);
   }
 
-  getTasks(filter: string): void {
+  getTasks(status: string): void {
     this.spinner.show();
-    this.tasksService.getTasks(filter)
+    this.tasksService.getTasksByStatus(status)
       .subscribe(tasks => {
         this.spinner.hide();
         this.tasks = tasks;

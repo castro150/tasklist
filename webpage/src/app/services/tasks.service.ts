@@ -16,9 +16,11 @@ export class TasksService {
 
   constructor(private http: HttpClient) { }
 
-  getTasks(filter): Observable<Task[]> {
-    console.warn('BUSCANDO TASKS', filter); // TODO apply filter
-    return this.http.get<Task[]>(`http://${environment.server}/api/tasks`);
+  getTasksByStatus(status: string): Observable<Task[]> {
+    let serviceUrl = `http://${environment.server}/api/tasks`;
+    if (status === 'pending') serviceUrl += '?pending=true';
+    else if (status === 'done') serviceUrl += '?pending=false';
+    return this.http.get<Task[]>(serviceUrl);
   }
 
   getImageUrl(imageName: string): string {
