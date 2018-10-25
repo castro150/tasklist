@@ -1,0 +1,12 @@
+.task-list-item {
+    position: relative;
+}
+
+.task-list-button {
+    position: absolute;
+    padding-left: 75%;
+}
+
+.confirm-card {
+    margin: 20px;
+}

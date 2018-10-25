@@ -35,6 +35,12 @@ export class TasksService {
     return this.http.post<Task>(this.tasksUrl, newTask, httpOptions);
   }
 
+  finalizeTask(task: Task, file: File): Observable<Object> {
+    let formdata: FormData = new FormData();
+    formdata.append('file', file);
+    return this.http.put(`${this.tasksUrl}/finalize/${task.id}`, formdata);
+  }
+
   getImageUrl(imageName: string): string {
     return `http://${environment.server}/files/${imageName}`;
   }

@@ -7,18 +7,24 @@ import { HttpClientModule }    from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import {
+  MatButtonModule,
   MatButtonToggleModule,
+  MatCardModule,
+  MatDividerModule,
   MatExpansionModule,
-  MatInputModule
+  MatInputModule,
+  MatListModule
 } from '@angular/material';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { TasksComponent } from './tasks/tasks.component';
+import { FinalizeComponent } from './finalize/finalize.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TasksComponent
+    TasksComponent,
+    FinalizeComponent
   ],
   imports: [
     BrowserModule,
@@ -26,9 +32,13 @@ import { TasksComponent } from './tasks/tasks.component';
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
+    MatButtonModule,
     MatButtonToggleModule,
+    MatCardModule,
+    MatDividerModule,
     MatExpansionModule,
     MatInputModule,
+    MatListModule,
     NgxSpinnerModule
   ],
   providers: [],

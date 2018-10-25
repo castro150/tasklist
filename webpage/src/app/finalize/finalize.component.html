@@ -1,0 +1,32 @@
+<ngx-spinner></ngx-spinner>
+
+<div class="row" *ngIf="selectedTask">
+  <div class="offset-md-4 col-md-4 col-sm-12">
+    <mat-card class="confirm-card">
+      <mat-card-header>
+        <mat-card-title>Concluir tarefa "{{ selectedTask.name }}"?</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <input type="file" placeholder="Selecione o arquivo" [(ngModel)]="model.file" (change)="onFileChanged($event)">
+      </mat-card-content>
+      <mat-card-actions>
+        <button *ngIf="!selectedFile" mat-button color="primary" (click)="confirmFinalize()" disabled>Sim</button>
+        <button *ngIf="selectedFile" mat-button color="primary" (click)="confirmFinalize()">Sim</button>
+        <button mat-button color="warn" (click)="cancelFinalize()">Não</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
+
+<div class="row">
+  <div class="offset-md-4 col-md-4 col-sm-12">
+    <h1>Tarefas</h1>
+    <mat-list>
+      <mat-list-item class="task-list-item" *ngFor="let task of tasks;">
+        <span>{{ task.name }}</span>
+        <div class="task-list-button"><button mat-stroked-button (click)="doTask(task)">Fazer</button></div>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+    </mat-list>
+  </div>
+</div>
