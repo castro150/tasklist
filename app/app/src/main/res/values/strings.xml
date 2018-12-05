@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Task List</string>
+    <string name="edit_message">Enter a message</string>
+    <string name="button_send">Send</string>
+    <string name="do_task">Do</string>
+    <string name="take_picture">Take Picture</string>
+</resources>
