@@ -1,10 +1,11 @@
 package com.example.app;
 
+import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,8 +14,6 @@ import android.widget.TextView;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -115,21 +114,15 @@ public class MainActivity extends AppCompatActivity {
             final String taskId = task.getId().toString();
             final String taskName = task.getName();
 
-            TextView name = new TextView(this);
-            name.setTextSize(24);
-            name.setText(task.getName());
-            name.setLayoutParams(new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT)
-            );
+            LayoutInflater vi = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View view = vi.inflate(R.layout.task_layout, null);
 
-            Button send = new Button(this);
-            send.setText(R.string.do_task);
-            send.setLayoutParams(new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT)
-            );
-            send.setOnClickListener(new View.OnClickListener() {
+            TextView textView = view.findViewById(R.id.taskName);
+            textView.setText(task.getName());
+
+            Button doButton = view.findViewById(R.id.doTask);
+            doButton.setText(R.string.do_task);
+            doButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(MainActivity.this, DoTaskActivity.class);
@@ -139,16 +132,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
-            View line = new View(this);
-            line.setBackgroundColor(Color.GRAY);
-            line.setLayoutParams(new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.FILL_PARENT,
-                    2)
-            );
-
-            this.linearLayout.addView(name);
-            this.linearLayout.addView(send);
-            this.linearLayout.addView(line);
+            this.linearLayout.addView(view, 0, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         }
 
         setContentView(this.linearLayout);

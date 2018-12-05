@@ -1,10 +1,17 @@
 package com.example.app;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Build;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -23,6 +30,8 @@ public class DoTaskActivity extends AppCompatActivity {
 
     private String id = null;
     private String name = null;
+    private LocalLocation location;
+    private LocationManager locationManager;
     private HttpRequest http = new HttpRequest();
 
     private void dispatchTakePictureIntent() {
@@ -45,6 +54,8 @@ public class DoTaskActivity extends AppCompatActivity {
         // Capture the layout's TextView and set the string as its text
         TextView textView = findViewById(R.id.doTaskText);
         textView.setText(String.format("Enviando resolução da tarefa \"%s\".", this.name));
+
+        startLocationListener();
     }
 
     /** Called when the user taps the Take Picture button */
@@ -73,6 +84,8 @@ public class DoTaskActivity extends AppCompatActivity {
 
     private void confirmDialog(final byte[] byteArray) {
         final String taskId = this.id;
+        final Double longitude = this.location.getLongitude();
+        final Double latitude = this.location.getLatitude();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         builder
@@ -81,7 +94,7 @@ public class DoTaskActivity extends AppCompatActivity {
                 @Override
                 public void onClick(final DialogInterface dialog, int id) {
                     String url = String.format("http://awesome-tasklist-server.herokuapp.com/api/tasks/finalize/%s", taskId);
-                    http.uploadFile(url, byteArray, new Callback() {
+                    http.uploadFile(url, longitude, latitude, byteArray, new Callback() {
                         @Override
                         public void onFailure(Call call, IOException e) {
                             e.printStackTrace();
@@ -107,5 +120,56 @@ public class DoTaskActivity extends AppCompatActivity {
                 }
             })
             .show();
+    }
+
+    private void startLocationListener() {
+        this.location = new LocalLocation();
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) !=
+                PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(new String[] {
+                        Manifest.permission.ACCESS_COARSE_LOCATION,
+                                Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.INTERNET
+                        } , 10);
+            }
+            return;
+        }
+
+        this.locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        this.locationManager.requestLocationUpdates("gps", 5000, 0, location);
+    }
+
+    private class LocalLocation implements LocationListener {
+        private Double longitude = null;
+        private Double latitude = null;
+
+        public LocalLocation() {
+            super();
+        }
+
+        public Double getLongitude() {
+            return longitude;
+        }
+
+        public Double getLatitude() {
+            return latitude;
+        }
+
+        @Override
+        public void onLocationChanged(Location location) {
+            this.longitude = location.getLongitude();
+            this.latitude = location.getLatitude();
+        }
+
+        @Override
+        public void onStatusChanged(String s, int i, Bundle bundle) {}
+
+        @Override
+        public void onProviderEnabled(String s) {}
+
+        @Override
+        public void onProviderDisabled(String s) {}
     }
 }
