@@ -93,8 +93,10 @@ public class DoTaskActivity extends AppCompatActivity {
             .setPositiveButton("Sim",  new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(final DialogInterface dialog, int id) {
-                    String url = String.format("http://awesome-tasklist-server.herokuapp.com/api/tasks/finalize/%s", taskId);
-                    http.uploadFile(url, longitude, latitude, byteArray, new Callback() {
+                    String url = String.format(
+                            "http://awesome-tasklist-server.herokuapp.com/api/tasks/finalize/%s?longitude=%s&latitude=%s",
+                            taskId, longitude, latitude);
+                    http.uploadFile(url, byteArray, new Callback() {
                         @Override
                         public void onFailure(Call call, IOException e) {
                             e.printStackTrace();

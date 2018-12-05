@@ -53,11 +53,13 @@ public class TaskService {
         taskRepository.delete(task);
     }
 
-    public void finalizeTask(Long taskId, MultipartFile file) {
+    public void finalizeTask(Long taskId, Double latitude, Double longitude, MultipartFile file) {
         Task task = taskRepository.findById(taskId)
             .orElseThrow(() -> new ResourceNotFoundException("Task", "id", taskId));
 
         task.setPending(false);
+        task.setLatitude(latitude);
+        task.setLongitude(longitude);
         String fileName = fileStorageService.storeFile(file);
         task.setImage(fileName);
 

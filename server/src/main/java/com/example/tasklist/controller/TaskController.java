@@ -59,8 +59,9 @@ public class TaskController {
 
     // Finalize a Task
     @RequestMapping(value="/tasks/finalize/{id}", method=RequestMethod.PUT)
-    public ResponseEntity<?> finalizeTask(@PathVariable(value = "id") Long taskId, @RequestParam("file") MultipartFile file) {
-        taskService.finalizeTask(taskId, file);
+    public ResponseEntity<?> finalizeTask(@PathVariable(value = "id") Long taskId, @RequestParam("file") MultipartFile file,
+                                          @RequestParam("latitude") Double latitude, @RequestParam("longitude") Double longitude) {
+        taskService.finalizeTask(taskId, latitude, longitude, file);
         return ResponseEntity.ok().build();
     }
 }

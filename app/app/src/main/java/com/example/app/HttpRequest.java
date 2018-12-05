@@ -22,16 +22,10 @@ public class HttpRequest {
         return call;
     }
 
-    public Call uploadFile(String url, Double longitude, Double latitude, byte[] byteArray, Callback callback) {
-        RequestBody locationBody = new FormBody.Builder()
-                .add("longitude", longitude.toString())
-                .add("latitude", latitude.toString())
-                .build();
-
+    public Call uploadFile(String url, byte[] byteArray, Callback callback) {
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("file", "android-file.png", RequestBody.create(MediaType.parse("image/png"), byteArray))
-                .addPart(locationBody)
                 .build();
 
         Request request = new Request.Builder()

@@ -38,8 +38,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
         linearLayout = this.linearLayout();
         setContentView(linearLayout);
 
@@ -88,17 +86,6 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);
     }
-
-//    private RelativeLayout relativeLayout() {
-//        RelativeLayout relativeLayout = new RelativeLayout(this);
-//
-//        // SET THE SIZE
-//        relativeLayout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 100));
-//
-//        // SET BACKGROUND COLOR JUST TO MAKE LAYOUT VISIBLE
-//        relativeLayout.setBackgroundColor(Color.GREEN);
-//        return relativeLayout;
-//    }
 
     private LinearLayout linearLayout() {
         LinearLayout linearLayout = new LinearLayout(this);

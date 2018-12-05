@@ -34,6 +34,10 @@ public class Task implements Serializable {
     
     private String image;
 
+    private Double latitude;
+
+    private Double longitude;
+
     @Column(nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
